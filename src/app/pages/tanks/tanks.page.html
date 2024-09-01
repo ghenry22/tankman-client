@@ -13,5 +13,72 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="addTank()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  @for (tank of appStateService.tanks | async; track tank.id) {
+    <ion-card>
+      <!-- <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+      TODO: update server to image upload and serving
+      Update to use tank image 
+      -->
+      <ion-card-header>
+        <ion-card-title>{{tank.name}}</ion-card-title>
+        <ion-card-subtitle>{{tank.location}}</ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-list>
+
+          <ion-item lines="none">
+            <ion-label>ID</ion-label>
+            <ion-text>{{tank.id}}</ion-text>
+          </ion-item>
+
+          @if (tank.isRound) {
+            <ion-item lines="none">
+              <ion-label>Diameter</ion-label>
+              <ion-text>{{tank.diameter}}</ion-text>
+            </ion-item>
+          }
+
+          <ion-item lines="none">
+            <ion-label>Height</ion-label>
+            <ion-text>{{tank.height}}</ion-text>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label>Total Capacity</ion-label>
+            @if (tank.capacityUnit == 'gallons') {
+              <ion-text>{{tank.statedCapacity / 3.78541 | number:'1.0-0'}} {{tank.capacityUnit}}</ion-text>
+            } @else {
+              <ion-text>{{tank.statedCapacity}} {{tank.capacityUnit}}</ion-text>
+            }
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label>SensorID</ion-label>
+            <ion-text>{{tank.sensorId}}</ion-text>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-label>Sensor Distance When Full</ion-label>
+            <ion-text>{{tank.sensorDistanceWhenFull}}</ion-text>
+          </ion-item>
+
+
+        </ion-list>
+      </ion-card-content>
+
+      <ion-item>
+        <ion-button slot="start" fill="clear" (click)="editTank(tank)">Edit</ion-button>
+        <ion-button slot="end" fill="clear" color="danger" (click)="deleteTank(tank)">Delete</ion-button>
+      </ion-item>
+
+    </ion-card>
+  }
+
 </ion-content>

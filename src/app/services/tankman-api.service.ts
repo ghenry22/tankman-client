@@ -1,14 +1,19 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class TankmanApiService {
+  private http = inject(HttpClient);
   private baseUrl = '/'; // Base URL for the API
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
+
+  setBaseUrl(url: string) {
+    this.baseUrl = url + '/';
+  }
 
   // Tanks Endpoints
   getAllTanks(): Observable<any> {

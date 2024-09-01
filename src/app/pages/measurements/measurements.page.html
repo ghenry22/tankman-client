@@ -13,5 +13,23 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-grid>
+    <ion-row>
+      <ion-col><strong>ID</strong></ion-col>
+      <ion-col><strong>Tank ID</strong></ion-col>
+      <ion-col><strong>Distance From Sensor</strong></ion-col>
+      <ion-col><strong>Available Capacity</strong></ion-col>
+      <ion-col><strong>Available Percentage</strong></ion-col>
+      <ion-col><strong>Created</strong></ion-col>
+    </ion-row>
+    <ion-row *ngFor="let measurement of appStateService.measurements | async">
+      <ion-col>{{ measurement.id }}</ion-col>
+      <ion-col>{{ measurement.tankId }}</ion-col>
+      <ion-col>{{ measurement.distanceFromSensor }}</ion-col>
+      <ion-col>{{ measurement.availableCapacity }}</ion-col>
+      <ion-col>{{ measurement.availablePercentage }}</ion-col>
+      <ion-col>{{ measurement.timeStamp }}</ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

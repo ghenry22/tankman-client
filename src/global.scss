@@ -35,3 +35,25 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+
+.more-info-modal {
+    --height: auto;
+    --width: 95%;
+    --max-width: 500px;
+    --max-height: 80%;
+    --overflow: auto;
+    --border-radius: 16px;
+    --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+  
+  .more-info-modal ion-toolbar {
+    --background: rgb(14 116 144);
+    --color: white;
+  }
+  
+  .custom-action-sheet {
+    --background: #000000;
+    --backdrop-opacity: 0.6;
+    --color: #fff;
+  }

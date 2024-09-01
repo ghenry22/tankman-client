@@ -1,14 +1,23 @@
-import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
-import { ExploreContainerComponent } from '../../components/explore-container/explore-container.component';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
+import { AppStateService } from 'src/app/services/app-state.service';
 
 @Component({
   selector: 'app-measurements',
   templateUrl: 'measurements.page.html',
   styleUrls: ['measurements.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent],
+  imports: [IonCol, IonRow, IonGrid, IonHeader, IonToolbar, IonTitle, IonContent, CommonModule],
 })
 export class MeasurementsPage {
-  constructor() {}
+  public appStateService: AppStateService = inject(AppStateService);
+
+  constructor() {
+    this.initData();
+  }
+
+  async initData() {
+    await this.appStateService.getMeasurements();
+  }
 }
