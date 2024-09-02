@@ -31,12 +31,18 @@ export class TankmanApiService {
   }
 
   updateTank(id: number, tank: any): Observable<any> {
+    if (id === undefined || id === 0) {
+      return new Observable();
+    }
     return this.http.put(`${this.baseUrl}tanks/${id}`, tank, {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     });
   }
 
   deleteTank(id: number): Observable<any> {
+    if (id === undefined || id === 0) {
+      return new Observable();
+    }
     return this.http.delete(`${this.baseUrl}tanks/${id}`);
   }
 

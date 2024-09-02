@@ -58,4 +58,20 @@ export class AppStateService {
     return res;
   }
 
+  async deleteTank(tank: Tank) {
+    const res = await lastValueFrom(this.api.deleteTank(tank.id || 0));
+    await this.getTanks();
+    return res;
+  }
+
+  async updateTank(tank: Tank) {
+    // always store capacity in litres
+    if(tank.capacityUnit === 'gallons') {
+      tank.statedCapacity = tank.statedCapacity * 3.78541;
+    }
+    const res = await lastValueFrom(this.api.updateTank(tank.id || 0, tank));
+    await this.getTanks();
+    return res;
+  }
+
 }

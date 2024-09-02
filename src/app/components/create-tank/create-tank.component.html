@@ -4,69 +4,59 @@
     <ion-button color="light" (click)="cancel()">Close</ion-button>
   </ion-buttons>
 </ion-toolbar>
-
  
-    <ion-list>
+<ion-list> 
+  <ion-item lines="none">
+    <ion-input label="Name" label-placement="stacked" [(ngModel)]="tank.name" placeholder="Enter a name for this tank" required=true></ion-input>
+  </ion-item>
 
-      <ion-item>
-        <p>Identification</p>
-      </ion-item>
-  
-      <ion-item lines="none">
-        <ion-input label="Name" label-placement="stacked" [(ngModel)]="tank.name" placeholder="Enter a name for this tank" required=true></ion-input>
-      </ion-item>
+  <ion-item lines="none">
+    <ion-input label="Location" label-placement="stacked" [(ngModel)]="tank.location" placeholder="Where is this tank?" required=true></ion-input>
+  </ion-item>
 
-      <ion-item lines="none">
-        <ion-input label="Location" label-placement="stacked" [(ngModel)]="tank.location" placeholder="Where is this tank?" required=true></ion-input>
-      </ion-item>
+  <ion-item lines="none">
+    <ion-label slot="start">Is it a round tank?</ion-label>
+    <ion-toggle slot="end" [checked]="tank.isRound" (ionChange)="toggleIsRound($event)"></ion-toggle>
+  </ion-item>
 
-      <ion-item>
-        <p>Measurements</p>
-      </ion-item>
+  @if(tank.isRound) {
+    <ion-item lines="none">
+      <ion-input label="Diameter in CM" label-placement="stacked" [(ngModel)]="tank.diameter" placeholder="Diameter of the tank"></ion-input>
+    </ion-item>
+  }
 
-      <ion-item lines="none">
-        <ion-label slot="start">Is it a round tank?</ion-label>
-        <ion-toggle slot="end" [checked]="tank.isRound" (ionChange)="toggleIsRound($event)"></ion-toggle>
-      </ion-item>
+  <ion-item lines="none">
+    <ion-input label="Height in CM" label-placement="stacked" [(ngModel)]="tank.height" placeholder="Height of the tank" required=true></ion-input>
+  </ion-item>
 
-      @if(tank.isRound) {
-        <ion-item lines="none">
-          <ion-input label="Diameter in CM" label-placement="stacked" [(ngModel)]="tank.diameter" placeholder="Diameter of the tank"></ion-input>
-        </ion-item>
-      }
+  <ion-item lines="none">
+    <ion-input label="Stated Capacity" label-placement="stacked" [(ngModel)]="tank.statedCapacity" placeholder="Stated Capacity of the tank"></ion-input>
+  </ion-item>
 
-      <ion-item lines="none">
-        <ion-input label="Height in CM" label-placement="stacked" [(ngModel)]="tank.height" placeholder="Height of the tank" required=true></ion-input>
-      </ion-item>
+  <ion-item lines="none">
+    <ion-label>Capacity Unit</ion-label>
+    <ion-select slot="end" interface="action-sheet" [interfaceOptions]='actionSheetOptions' [ngModel]="tank.capacityUnit" (ionChange)="updateCapacityUnit($event)">
+      <ion-select-option value="litres">Litres</ion-select-option>
+      <ion-select-option value="gallons">Gallons</ion-select-option>
+    </ion-select>
+  </ion-item>
 
-      <ion-item lines="none">
-        <ion-input label="Stated Capacity" label-placement="stacked" [(ngModel)]="tank.statedCapacity" placeholder="Stated Capacity of the tank"></ion-input>
-      </ion-item>
+  <ion-item lines="none">
+    <ion-label>Sensor ID</ion-label>
+    <ion-select slot="end" interface="action-sheet" [interfaceOptions]='actionSheetOptions' [ngModel]="tank.sensorId" (ionChange)="updateSensorId($event)">
+      <ion-select-option value=1>Sensor 1 (pins 2 & 3)</ion-select-option>
+      <ion-select-option value=2>Sensor 2 (pins 4 & 5)</ion-select-option>
+    </ion-select>
+  </ion-item>
 
-      <ion-item lines="none">
-        <ion-label>Capacity Unit</ion-label>
-        <ion-select slot="end" interface="action-sheet" [interfaceOptions]='actionSheetOptions' [ngModel]="tank.capacityUnit" (ionChange)="updateCapacityUnit($event)">
-          <ion-select-option value="litres">Litres</ion-select-option>
-          <ion-select-option value="gallons">Gallons</ion-select-option>
-        </ion-select>
-      </ion-item>
+  <ion-item lines="none">
+    <ion-input label="Distance to Sensor when tank is full in CM" label-placement="stacked" [(ngModel)]="tank.sensorDistanceWhenFull" placeholder="Distance from sensor to bottom of overflow"></ion-input>
+  </ion-item>
 
-      <ion-item lines="none">
-        <ion-label>Sensor ID</ion-label>
-        <ion-select slot="end" interface="action-sheet" [interfaceOptions]='actionSheetOptions' [ngModel]="tank.sensorId" (ionChange)="updateSensorId($event)">
-          <ion-select-option value=1>Sensor 1 (pins 2 & 3)</ion-select-option>
-          <ion-select-option value=2>Sensor 2 (pins 4 & 5)</ion-select-option>
-        </ion-select>
-      </ion-item>
+  <ion-item lines="none">
+    <ion-button slot="end" size="medium" color="primary" (click)="createTank()">
+      Create
+    </ion-button>
+  </ion-item>
 
-      <ion-item lines="none">
-        <ion-input label="Distance to Sensor when tank is full in CM" label-placement="stacked" [(ngModel)]="tank.sensorDistanceWhenFull" placeholder="Distance from sensor to bottom of overflow"></ion-input>
-      </ion-item>
-  
-      <ion-item lines="none">
-        <ion-button slot="end" size="medium" color="primary" (click)="createTank()">
-          Create
-        </ion-button>
-      </ion-item>
-  
-    </ion-list>
+</ion-list>
