@@ -88,4 +88,29 @@ export class TankmanApiService {
   getHealthStatus(): Observable<any> {
     return this.http.get(`${this.baseUrl}health/status`);
   }
+
+  // Settings Endpoints
+  getSettings(): Observable<any> {
+    return this.http.get(`${this.baseUrl}settings`);
+  }
+
+  getSchedulerEnabled(): Observable<any> {
+    return this.http.get(`${this.baseUrl}settings/schedulerEnabled`);
+  }
+
+  setSchedulerEnabled(enabled: boolean): Observable<any> {
+    return this.http.put(`${this.baseUrl}settings/schedulerEnabled`, { value: enabled }, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    });
+  }
+
+  getSchedulerInterval(): Observable<any> {
+    return this.http.get(`${this.baseUrl}settings/schedulerInterval`);
+  }
+
+  setSchedulerInterval(interval: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}settings/schedulerInterval`, { value: interval }, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    });
+  }
 }

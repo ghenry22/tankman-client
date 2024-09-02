@@ -11,7 +11,8 @@ export class AppStateService {
   private api: TankmanApiService = inject(TankmanApiService);
   public tanks: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
   public measurements: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-  public settings: BehaviorSubject<any> = new BehaviorSubject<any>({});
+  public schedulerEnabled: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public schedulerInterval: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   constructor() {
 
@@ -19,8 +20,6 @@ export class AppStateService {
 
   async init() {
     this.api.setBaseUrl(this.getServerBaseUrl());
-    // await this.getTanks();
-    // await this.getMeasurements();
   }
 
   getServerBaseUrl() {
@@ -71,6 +70,35 @@ export class AppStateService {
     }
     const res = await lastValueFrom(this.api.updateTank(tank.id || 0, tank));
     await this.getTanks();
+    return res;
+  }
+
+  async getSettings() {
+    const res = await lastValueFrom(this.api.getSettings());
+    return res;
+  }
+
+  async getSchedulerEnabled() {
+    const res = await lastValueFrom(this.api.getSchedulerEnabled());
+    this.schedulerEnabled.next(res.enabled);
+    return res;
+  }
+
+  async setSchedulerEnabled(enabled: boolean) {
+    const res = await lastValueFrom(this.api.setSchedulerEnabled(enabled));
+    await this.getSchedulerEnabled();
+    return res;
+  }
+
+  async getSchedulerInterval() {
+    const res = await lastValueFrom(this.api.getSchedulerInterval());
+    this.schedulerInterval.next(res.interval);
+    return res;
+  }
+
+  async setSchedulerInterval(interval: number) {
+    const res = await lastValueFrom(this.api.setSchedulerInterval(interval));
+    await this.getSchedulerInterval();
     return res;
   }
 
